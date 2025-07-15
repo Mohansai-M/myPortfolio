@@ -13,7 +13,7 @@ const projects = [
       'A full-stack flight search platform built with React and Node.js. Integrates real-world datasets (Goibibo, airport codes, CO₂ emissions) and supports live flight cards, airport search, and airline logo matching. MongoDB powers backend storage, while Redux manages frontend state.',
     tech: ['React', 'Redux', 'Node.js', 'Express.js', 'MongoDB', 'Framer Motion'],
     github: 'https://github.com/Mohansai-M/flight-finder',
-    demo: 'https://flight-finder-v2-mohansaims-projects.vercel.app/',
+    demo: 'https://flight-finder-v2.vercel.app/',
   },
   {
     title: '🔖 LinkNest (Full Stack Bookmarks App — In Progress)',
@@ -21,7 +21,7 @@ const projects = [
       'A modern bookmark manager to save, categorize, and search links with speed. Built using Next.js, TypeScript, GraphQL, and Redux. Will support authentication, responsive UI, and smooth animations using Framer Motion.',
     tech: ['Next.js', 'TypeScript', 'Redux', 'GraphQL', 'Framer Motion', 'MongoDB'],
     github: 'https://github.com/Mohansai-M',
-    demo: 'https://linknest.vercel.app',
+    demo: 'https://vercel.com/',
   },
   {
     title: '📔 E-Bookstore (MERN Stack — Prototype)',

@@ -94,7 +94,7 @@ const Navbar = () => {
                   style={{
                     display: "flex",
                     flexDirection: "column",
-                    height: "100%",
+                    height: "100vh",
                   }}
                 >
                   <ul className={styles.sidebarLinks}>
@@ -121,7 +121,7 @@ const Navbar = () => {
                       marginTop: "-200px",
                     }}
                   >
-                    ✕
+                    ✕ 
                   </button>
                 </div>
                 <div className={styles.sidebarToggle}>
