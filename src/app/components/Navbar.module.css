@@ -19,12 +19,25 @@
 }
 
 /* Logo (top bar) */
-.logo {
+.logo ,.logoLink {
   font-size: 1.3rem;
   font-weight: 600;
   color: #1a73e8;
+  cursor: pointer;
 }
 
+.logoLink
+{
+text-decoration: none;
+ cursor: pointer;
+}
+.logoLink.active
+{
+font-size: 1.3rem;
+font-weight: 600;
+color: #1a73e8;
+text-decoration: none;
+}
 /* Navbar links */
 .navLinks {
   display: flex;
@@ -137,4 +150,9 @@
   .menuIcon {
     display: block;
   }
+
+  .logo ,.logoLink {
+  font-size: 2rem;
+  font-weight: 600;
+}
 }

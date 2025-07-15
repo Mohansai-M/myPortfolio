@@ -46,7 +46,7 @@ const Navbar = () => {
         }}
       >
         <div className={styles.container}>
-          <div className={styles.logo}>Mohansai</div>
+          <div className={styles.logo}> <a href ="/" className={styles.logoLink}>Mohansai</a></div>
           <ul className={styles.navLinks}>
             {sections.map((id) => (
               <li key={id}>
