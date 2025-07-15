@@ -1,0 +1,140 @@
+/* === Navbar (Top) === */
+.navbar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 50;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid;
+}
+
+/* Flex container */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo (top bar) */
+.logo {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1a73e8;
+}
+
+/* Navbar links */
+.navLinks {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.link {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.3rem 0.5rem;
+  transition: color 0.2s ease, border-bottom 0.2s ease;
+  border-bottom: 2px solid transparent;
+}
+
+.link:hover {
+  color: #1a73e8;
+}
+
+.linkDark:hover {
+  color: #1a73e8;
+}
+
+.active {
+  color: #1a73e8;
+  border-bottom: 2px solid #1a73e8;
+}
+
+.activeDark {
+  color: #1a73e8;
+  border-bottom: 2px solid #1a73e8;
+}
+
+/* === Sidebar & Hamburger === */
+
+/* Hamburger icon */
+.menuIcon {
+  display: none;
+  background: none;
+  font-size: 1.8rem;
+  border: none;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+/* Sidebar (right slide-in) */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 220px;
+  height: 100vh;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid;
+  background-color: #fff; /* overridden by inline style */
+  padding: 0;
+}
+
+/* Sidebar inner content */
+.sidebarContent {
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 2rem;
+}
+
+/* Logo inside sidebar */
+.logoLarge {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1a73e8;
+}
+
+/* Sidebar nav links */
+.sidebarLinks {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Theme toggle inside sidebar */
+.sidebarToggle {
+  margin-top: auto;
+}
+
+/* Overlay (dark background when sidebar is open) */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 90;
+}
+
+/* === Responsive Layout (Mobile) === */
+@media screen and (max-width: 700px) {
+  .navLinks,
+  .right {
+    display: none;
+  }
+
+  .menuIcon {
+    display: block;
+  }
+}

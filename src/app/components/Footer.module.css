@@ -1,0 +1,38 @@
+.footer {
+  padding: 2rem;
+  text-align: center;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.links a {
+  margin: 0 0.75rem;
+  font-size: 1.4rem;
+  color: inherit;
+  transition: color 0.2s ease;
+}
+
+.links a:hover {
+  color: #1a73e8;
+}
+
+.copy {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--footer-text-muted);
+}
+
+.scrollTop {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: var(--footer-text);
+}
