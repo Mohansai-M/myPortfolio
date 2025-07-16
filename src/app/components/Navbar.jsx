@@ -46,7 +46,12 @@ const Navbar = () => {
         }}
       >
         <div className={styles.container}>
-          <div className={styles.logo}> <a href ="/" className={styles.logoLink}>Mohansai</a></div>
+          <div className={styles.logo}>
+            {" "}
+            <a href="/" className={styles.logoLink}>
+              Mohansai
+            </a>
+          </div>
           <ul className={styles.navLinks}>
             {sections.map((id) => (
               <li key={id}>
@@ -90,13 +95,17 @@ const Navbar = () => {
               }}
             >
               <div className={styles.sidebarContent}>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    height: "100vh",
-                  }}
-                >
+                <div>
+                  <div>
+                    <button
+                      className={styles.menuIcon}
+                      onClick={() => setIsMenuOpen(false)}
+                      style={{ color: theme === "light" ? "#555" : "#bbb" }}
+                      aria-label="Close menu"
+                    >
+                      ✕
+                    </button>
+                  </div>
                   <ul className={styles.sidebarLinks}>
                     {sections.map((id) => (
                       <li key={id}>
@@ -105,27 +114,19 @@ const Navbar = () => {
                           className={`${styles.link} ${
                             activeSection === id ? styles.active : ""
                           }`}
-                          style={{ color: theme === "light" ? "#555" : "#bbb" }}
+                          style={{ color: theme === "light" ? "#555" : "#bbb" , fontWeight:"bold"}}
                         >
                           {id.charAt(0).toUpperCase() + id.slice(1)}
                         </button>
                       </li>
                     ))}
                   </ul>
-                  <button
-                    className={styles.menuIcon}
-                    onClick={() => setIsMenuOpen(false)}
-                    style={{
-                      color: theme === "light" ? "#555" : "#bbb",
-                      alignContent: "end",
-                      marginTop: "-200px",
-                    }}
+                  <div
+                    className={styles.sidebarToggle}
+                    style={{ marginTop: "1rem", textAlign: "center" }}
                   >
-                    ✕ 
-                  </button>
-                </div>
-                <div className={styles.sidebarToggle}>
-                  <ThemeToggle />
+                    <ThemeToggle />
+                  </div>
                 </div>
               </div>
             </motion.div>

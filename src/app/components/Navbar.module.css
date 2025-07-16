@@ -96,7 +96,6 @@ text-decoration: none;
   display: flex;
   flex-direction: column;
   border-left: 1px solid;
-  background-color: #fff; /* overridden by inline style */
   padding: 0;
 }
 
@@ -105,16 +104,12 @@ text-decoration: none;
   padding: 2rem 1.5rem;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  justify-content: "space-between";
+  height: 100vh;
   gap: 2rem;
+  padding :"1rem"
 }
 
-/* Logo inside sidebar */
-.logoLarge {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #1a73e8;
-}
 
 /* Sidebar nav links */
 .sidebarLinks {
@@ -152,7 +147,7 @@ text-decoration: none;
   }
 
   .logo ,.logoLink {
-  font-size: 2rem;
-  font-weight: 600;
+   font-size: 1.8rem;
+  font-weight: 700;
 }
 }
