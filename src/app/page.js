@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar";
 import ContactSection from "./components/ContactSection";
 import AwardsSection from "./components/AwardsSection";
 import Footer from "./components/Footer";
+import OpenSourceSection from "./components/OpensourcesSection";
 
 export default function Home() {
    return (
@@ -16,6 +17,7 @@ export default function Home() {
         <section id="home"><HeroSection /></section>
         <section id="about"><AboutSection /></section>
         <section id="projects"><ProjectsSection /></section>
+        <section id="opensource"><OpenSourceSection /></section>
         <section id="experience"><WorkSection /></section>
         <section id="awards"><AwardsSection /></section>
         <section id="contact"><ContactSection /></section>
