@@ -59,7 +59,7 @@ const contributions = [
       "An open-source React application built on the 321 Vegan API, helping users check and manage products, brands, cosmetics, and additives for vegan-friendliness.",
     contributions: [
       {
-        title: "🔧 Frontend Bug Fixes & UX Improvements",
+        title: "✨ Add Quick-Add Buttons for 'Problem' Field",
         details: [
           "✅ Fixed checkbox–textarea sync issues by implementing precise add/remove logic for accurate state synchronization.",
           "🧹 Enhanced input validation to handle trimming, empty values, and duplicates, ensuring reliable data flow.",
