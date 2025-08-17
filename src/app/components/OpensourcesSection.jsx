@@ -7,7 +7,7 @@ import { FaGithub } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import Image from "next/image";
 
-// Optional: Replace this with an imported SVG or icon component
+// Fallback repo icon (for repos without logo)
 const RepoIcon = () => (
   <svg
     height="16"
@@ -25,13 +25,14 @@ const contributions = [
     repoName: "Checkmate",
     org: "bluewave-labs",
     repoLink: "https://github.com/bluewave-labs/Checkmate",
+    logo: "/checkmate-icon.svg",
     description:
       "A developer-focused internal dashboard tool for team and account management. Contributed multiple improvements to frontend UX, logic handling, and component styling.",
     contributions: [
       {
         title: "🌍 Multilingual i18n Support Enhancement",
         details:
-          "Extended support for additional languages by updating language mapping logic for custom country codes, initializing translation files, ensuring correct flag rendering, and maintaining key consistency in the UI.",
+          "Extended support for additional languages by updating language mapping logic, initializing translation files, ensuring correct flag rendering, and maintaining key consistency in the UI.",
         tech: ["React", "i18n", "UX", "Flag Icons"],
       },
       {
@@ -43,8 +44,34 @@ const contributions = [
       {
         title: "🔄 Self-Edit Redirect Logic in Team Route",
         details:
-          "Implemented a redirect for self-profile editing via team route, guiding users to the profile page. Prevented Redux state conflicts and improved navigation UX.",
+          "Implemented a redirect for self-profile editing via team route, guiding users to the profile page and preventing Redux state conflicts.",
         tech: ["React Router", "Redux", "Auth"],
+      },
+    ],
+  },
+  {
+    repoName: "321 Vegan Tool",
+    org: "ISAsxm",
+    repoLink: "https://github.com/ISAsxm/321vegan-tool/tree/main",
+    logoLight: "/logo-light.png",
+    logoDark: "/logo-dark.png",
+    description:
+      "An open-source React application built on the 321 Vegan API, helping users check and manage products, brands, cosmetics, and additives for vegan-friendliness.",
+    contributions: [
+      {
+        title: "🔧 Frontend Bug Fixes & UX Improvements",
+        details: [
+          "✅ Fixed checkbox–textarea sync issues by implementing precise add/remove logic for accurate state synchronization.",
+          "🧹 Enhanced input validation to handle trimming, empty values, and duplicates, ensuring reliable data flow.",
+          "🎨 Improved UX consistency by streamlining display updates when changing vegan status for smoother interactions.",
+        ],
+        tech: [
+          "React",
+          "State Management",
+          "Validation",
+          "Form Handling",
+          "UX/UI",
+        ],
       },
     ],
   },
@@ -74,106 +101,135 @@ const OpenSourceSection = () => {
         </h2>
 
         <div className={styles.grid}>
-          {contributions.map((repo, index) => (
-            <div
-              key={index}
-              className={styles.card}
-              style={{
-                backgroundColor: theme === "light" ? "white" : "#1a1a1a",
-                borderColor: theme === "light" ? "#e3e3e3" : "#2a2a2a",
-                boxShadow:
-                  theme === "light"
-                    ? "0 4px 10px rgba(0,0,0,0.06)"
-                    : "0 4px 10px rgba(255,255,255,0.04)",
-              }}
-            >
+          {contributions.map((repo, index) => {
+            const logoSrc =
+              repo.repoName === "321 Vegan Tool"
+                ? theme === "light"
+                  ? repo.logoDark
+                  : repo.logoLight
+                : repo.logo;
+
+            return (
               <div
-                style={{ display: "flex", alignItems: "center", gap: "8px" }}
-              >
-                <Image
-                  src="/checkmate-icon.svg"
-                  alt="Checkmate Icon"
-                  width={20}
-                  height={20}
-                />
-                <h3
-                  className={styles.title}
-                  style={{
-                    color: theme === "light" ? "#1a1a1a" : "#eee",
-                    margin: 0,
-                  }}
-                >
-                  {repo.repoName} ({repo.org})
-                </h3>
-              </div>
-
-              <p
-                className={styles.description}
-                style={{ color: theme === "light" ? "#444" : "#ccc" }}
-              >
-                {repo.description}
-              </p>
-
-              <div className={styles.links} style={{ marginBottom: "1rem" }}>
-                <a
-                  href={repo.repoLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    color: theme === "light" ? "#1a73e8" : "#80bfff",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "6px",
-                  }}
-                >
-                  <RepoIcon />
-                  <FaGithub />
-                  View Repository
-                </a>
-              </div>
-
-              <ul
+                key={index}
+                className={styles.card}
                 style={{
-                  paddingLeft: "1rem",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "1rem",
+                  backgroundColor: theme === "light" ? "white" : "#1a1a1a",
+                  borderColor: theme === "light" ? "#e3e3e3" : "#2a2a2a",
+                  boxShadow:
+                    theme === "light"
+                      ? "0 4px 10px rgba(0,0,0,0.06)"
+                      : "0 4px 10px rgba(255,255,255,0.04)",
                 }}
               >
-                {repo.contributions.map((c, i) => (
-                  <li key={i}>
-                    <strong
-                      style={{ color: theme === "light" ? "#222" : "#fff" }}
-                    >
-                      {c.title}
-                    </strong>
-                    <p
-                      style={{
-                        color: theme === "light" ? "#444" : "#ccc",
-                        marginTop: "0.25rem",
-                      }}
-                    >
-                      {c.details}
-                    </p>
-                    <ul className={styles.tech} style={{ marginTop: "0.5rem" }}>
-                      {c.tech.map((t, j) => (
-                        <li
-                          key={j}
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "8px" }}
+                >
+                  {logoSrc ? (
+                    <Image
+                      src={logoSrc}
+                      alt={`${repo.repoName} Logo`}
+                      width={20}
+                      height={20}
+                    />
+                  ) : (
+                    <RepoIcon />
+                  )}
+                  <h3
+                    className={styles.title}
+                    style={{
+                      color: theme === "light" ? "#1a1a1a" : "#eee",
+                      margin: 0,
+                    }}
+                  >
+                    {repo.repoName} {repo.org ? `(${repo.org})` : ""}
+                  </h3>
+                </div>
+
+                <p
+                  className={styles.description}
+                  style={{ color: theme === "light" ? "#444" : "#ccc" }}
+                >
+                  {repo.description}
+                </p>
+
+                <div className={styles.links} style={{ marginBottom: "1rem" }}>
+                  <a
+                    href={repo.repoLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      color: theme === "light" ? "#1a73e8" : "#80bfff",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                    }}
+                  >
+                    <FaGithub />
+                    View Repository
+                  </a>
+                </div>
+
+                <ul
+                  style={{
+                    paddingLeft: "1rem",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "1rem",
+                  }}
+                >
+                  {repo.contributions.map((c, i) => (
+                    <li key={i}>
+                      <strong
+                        style={{ color: theme === "light" ? "#222" : "#fff" }}
+                      >
+                        {c.title}
+                      </strong>
+                      {Array.isArray(c.details) ? (
+                        <ul
                           style={{
-                            backgroundColor:
-                              theme === "light" ? "#eef1f6" : "#333",
-                            color: theme === "light" ? "#333" : "#ddd",
+                            marginTop: "0.5rem",
+                            paddingLeft: "1.25rem",
+                            color: theme === "light" ? "#444" : "#ccc",
                           }}
                         >
-                          {t}
-                        </li>
-                      ))}
-                    </ul>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+                          {c.details.map((point, idx) => (
+                            <li key={idx}>{point}</li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p
+                          style={{
+                            color: theme === "light" ? "#444" : "#ccc",
+                            marginTop: "0.25rem",
+                          }}
+                        >
+                          {c.details}
+                        </p>
+                      )}
+                      <ul
+                        className={styles.tech}
+                        style={{ marginTop: "0.5rem" }}
+                      >
+                        {c.tech.map((t, j) => (
+                          <li
+                            key={j}
+                            style={{
+                              backgroundColor:
+                                theme === "light" ? "#eef1f6" : "#333",
+                              color: theme === "light" ? "#333" : "#ddd",
+                            }}
+                          >
+                            {t}
+                          </li>
+                        ))}
+                      </ul>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
         </div>
       </motion.div>
     </section>
