@@ -6,7 +6,7 @@ import ThemeToggle from "./ThemeToggle";
 import { useSelector } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
 
-const sections = ["home", "about", "projects", "experience"];
+const sections = ["home", "about", "projects", "open source contributions", "experience"];
 
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState("home");

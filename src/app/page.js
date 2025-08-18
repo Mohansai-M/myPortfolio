@@ -17,7 +17,7 @@ export default function Home() {
         <section id="home"><HeroSection /></section>
         <section id="about"><AboutSection /></section>
         <section id="projects"><ProjectsSection /></section>
-        <section id="opensource"><OpenSourceSection /></section>
+        <section id="open source contributions"><OpenSourceSection /></section>
         <section id="experience"><WorkSection /></section>
         <section id="awards"><AwardsSection /></section>
         <section id="contact"><ContactSection /></section>
