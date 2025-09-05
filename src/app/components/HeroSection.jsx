@@ -1,60 +1,100 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./HeroSection.module.css";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useSelector } from "react-redux";
+
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.25,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, ease: "easeInOut" },
+  },
+};
 
 const HeroSection = () => {
   const theme = useSelector((state) => state.theme.mode);
-  
+
+  // Mouse parallax
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const rotateX = useTransform(y, [-100, 100], [15, -15]);
+  const rotateY = useTransform(x, [-100, 100], [-15, 15]);
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      x.set(e.clientX - window.innerWidth / 2);
+      y.set(e.clientY - window.innerHeight / 2);
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [x, y]);
 
   return (
-    <section
-      className={styles.hero}
-      style={{ backgroundColor: theme === "light" ? "#fdfdfd" : "#000000ff" }}
-    >
+    <section className={styles.hero} data-theme={theme}>
+      <div className={styles.background}></div>
+
       <motion.div
         className={styles.container}
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        style={{ rotateX, rotateY }}
       >
-        <h1
-          className={styles.name}
-          style={{ color: theme === "light" ? "#444" : "#ddd" }}
-        >
-          Mohansai Mallineni
-        </h1>
-        <h2
-          className={styles.title}
-          style={{ color: theme === "light" ? "#555" : "#bbb" }}
-        >
-          Full Stack Developer — React / Next.js / TypeScript / MERN
-        </h2>
+        {/* Glowing Duplicate */}
+        <motion.h1 className={styles.name} variants={itemVariants}>
+          <span className={styles.glow}>Mohansai Mallineni</span>
+        </motion.h1>
 
-        <p
-          className={styles.description}
-          style={{ color: theme === "light" ? "#444" : "#ddd" }}
-        >
+        {/* Typewriter/Slide Title */}
+        <motion.h2 className={styles.title} variants={itemVariants}>
+          Full Stack Developer — React / Next.js / TypeScript / MERN
+        </motion.h2>
+
+        <motion.p className={styles.description} variants={itemVariants}>
           Frontend-focused full stack engineer specializing in scalable React &
           Next.js applications — with hands-on production experience in
           TypeScript and the MERN stack. I craft performant, accessible, and
           modern UIs that deliver real business value.
-        </p>
-        <div className={styles.cta}>
-          <a href="#projects" className={styles.button}>
+        </motion.p>
+
+        <motion.div className={styles.cta} variants={itemVariants}>
+          <motion.a
+            href="#projects"
+            className={styles.button}
+            whileHover={{
+              scale: 1.08,
+              boxShadow:
+                "0 0 25px var(--color-neon), 0 0 50px var(--color-neon)",
+            }}
+            whileTap={{ scale: 0.95 }}
+          >
             View Projects
-          </a>
-          <a
+          </motion.a>
+          <motion.a
             href="#contact"
-            className={`${styles.link} ${
-              theme === "dark" ? styles.darkLink : styles.lightLink
-            }`}
+            className={styles.link}
+            whileHover={{
+              scale: 1.05,
+              boxShadow:
+                "0 0 30px var(--color-neon), 0 0 60px var(--color-neon)",
+            }}
+            whileTap={{ scale: 0.95 }}
           >
             Contact Me
-          </a>
-        </div>
+          </motion.a>
+        </motion.div>
       </motion.div>
     </section>
   );

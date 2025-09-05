@@ -8,7 +8,6 @@ export default function LayoutWrapper({ children }) {
   return (
     <div
       className={theme === "dark" ? "dark" : "light"}
-      style={{ backgroundColor: theme === "light" ? "#fdfdfd" : "#000000ff" }}
     >
     {children}
     </div>

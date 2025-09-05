@@ -5,61 +5,47 @@ import styles from "./AboutSection.module.css";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.25 } },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: "easeInOut" },
+  },
+};
+
 const AboutSection = () => {
   const theme = useSelector((state) => state.theme.mode);
 
-  
   return (
-    <section
-      id="about"
-      className={styles.about}
-      style={{ backgroundColor: theme === "light" ? "#fff" : "#000000ff" }}
-    >
+    <section id="about" className={`${styles.about} ${styles[theme]}`}>
       <motion.div
         className={styles.container}
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
       >
-        <h2
-          className={styles.heading}
-          style={{ color: theme === "light" ? "#222" : "#fff" }}
-        >
-          About Me
-        </h2>
-        <p
-          className={styles.text}
-          style={{ color: theme === "light" ? "#444" : "#ddd" }}
-        >
-          I'm Mohansai Mallineni, a frontend-focused full stack developer with
-          4+ years of experience building enterprise-grade, performant web
-          applications using React, Next.js, and TypeScript. I specialize in
-          crafting scalable, maintainable UI systems with a strong eye for UX
-          and accessibility.
-        </p>
+        <motion.h2 className={styles.heading} variants={itemVariants}>
+          Behind the Screen
+        </motion.h2>
 
-        <p
-          className={styles.text}
-          style={{ color: theme === "light" ? "#444" : "#ddd" }}
-        >
-          At DIRECTV and CUNA Mutual, I've delivered production-ready features
-          in Agile teams—architecting CMS-driven components, refactoring API
-          logic for reusability, and implementing role-based UI controls. I'm
-          confident across the MERN stack (MongoDB, Express, React, Node.js)
-          with hands-on experience in Redux, Material UI, and backend routing
-          logic.
-        </p>
+        <motion.p className={styles.text} variants={itemVariants}>
+          Turning ideas into <span className={styles.highlight}>scalable</span>,{" "}
+          <span className={styles.highlight}>modern</span> web experiences. I’m
+          Mohansai Mallineni, a full-stack developer who thrives on building
+          clean, performant apps and experimenting with the latest tech.
+        </motion.p>
 
-        <p
-          className={styles.text}
-          style={{ color: theme === "light" ? "#444" : "#ddd" }}
-        >
-          Recognized with the <em>“Working as One”</em> and{" "}
-          <em>“Doing the Right Thing”</em> awards for initiative, delivery
-          ownership, and team collaboration. I take pride in clean code, clear
-          thinking, and continuous learning — always shipping with purpose.
-        </p>
+        <motion.p className={styles.text} variants={itemVariants}>
+          Beyond code, I explore open source, dabble in AI, and chase fresh ways
+          to make digital experiences smoother, faster, and more impactful.
+        </motion.p>
       </motion.div>
     </section>
   );

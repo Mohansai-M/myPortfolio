@@ -4,6 +4,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../store/ThemeSlice";
 import styles from "./ThemeToggle.module.css";
+import { Moon, Sun } from "lucide-react";
 
 const ThemeToggle = () => {
   const theme = useSelector((state) => state.theme.mode);
@@ -23,8 +24,9 @@ const ThemeToggle = () => {
         transition: "transform 0.2s ease",
         display: "inline-block",
       }}
+      data-theme={theme}
     >
-      {theme === "dark" ? "🌞" : "🌚"}
+      {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
     </button>
   );
 };

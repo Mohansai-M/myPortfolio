@@ -5,22 +5,28 @@ import styles from "./Navbar.module.css";
 import ThemeToggle from "./ThemeToggle";
 import { useSelector } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
+import { Menu,X } from "lucide-react";
 
-const sections = ["home", "about", "projects", "open source contributions", "experience"];
+const sections = ["home", "about", "projects", "contributions", "experience"];
 
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState("home");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const theme = useSelector((state) => state.theme.mode);
+  const [scrolled, setScrolled] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      const offsets = sections.map((id) => {
-        const el = document.getElementById(id);
-        return { id, offsetTop: el?.offsetTop || 0 };
-      });
+      const docHeight = document.body.scrollHeight - window.innerHeight;
+      setScrollProgress((scrollY / docHeight) * 100);
+      setScrolled(scrollY > 20);
 
+      const offsets = sections.map((id) => ({
+        id,
+        offsetTop: document.getElementById(id)?.offsetTop || 0,
+      }));
       const current = offsets.findLast((sec) => scrollY >= sec.offsetTop - 100);
       if (current) setActiveSection(current.id);
     };
@@ -35,108 +41,108 @@ const Navbar = () => {
     setIsMenuOpen(false);
   };
 
+  // Framer Motion
+  const sidebarVariants = {
+    hidden: { x: "100%" },
+    show: { x: 0, transition: { type: "spring", stiffness: 250, damping: 25 } },
+    exit: {
+      x: "100%",
+      transition: { type: "spring", stiffness: 250, damping: 25 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: 50 },
+    show: { opacity: 1, x: 0, transition: { duration: 0.4 } },
+  };
+
   return (
     <>
-      {/* Top Navbar */}
-      <nav
-        className={styles.navbar}
-        style={{
-          backgroundColor: theme === "light" ? "#ffffffee" : "#000000ff",
-          borderColor: theme === "light" ? "#eaeaea" : "#2a2a2a",
-        }}
-      >
-        <div className={styles.container}>
-          <div className={styles.logo}>
-            {" "}
-            <a href="/" className={styles.logoLink}>
-              Mohansai
-            </a>
-          </div>
-          <ul className={styles.navLinks}>
-            {sections.map((id) => (
-              <li key={id}>
-                <button
-                  onClick={() => handleClick(id)}
-                  className={`${styles.link} ${
-                    activeSection === id ? styles.active : ""
-                  }`}
-                  style={{ color: theme === "light" ? "#555" : "#bbb" }}
-                >
-                  {id.charAt(0).toUpperCase() + id.slice(1)}
-                </button>
-              </li>
-            ))}
-          </ul>
-          <div className={styles.right}>
-            <ThemeToggle />
-          </div>
-          <button
-            className={styles.menuIcon}
-            onClick={() => setIsMenuOpen(true)}
-            style={{ color: theme === "light" ? "#555" : "#bbb" }}
-          >
-            ☰
-          </button>
-        </div>
-      </nav>
+      {/* Scroll Progress */}
+      <div
+        className={styles.scrollProgress}
+        style={{ width: `${scrollProgress}%` }}
+      />
 
-      {/* Sidebar + Overlay */}
+
+      <motion.nav
+        className={`${styles.navbar} ${scrolled ? styles.scrolled : ""}`}
+        initial={{ y: -50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        <div className={styles.logo} onClick={() => handleClick("home")}>
+          Mohansai
+        </div>
+
+        <ul className={styles.navLinks}>
+          {sections.map((id) => (
+            <li key={id}>
+              <motion.a
+                whileHover={{
+                  scale: 1.1,
+                  textShadow: `0 0 8px var(--neon-green)`,
+                }}
+                transition={{ type: "spring", stiffness: 300 }}
+                onClick={() => handleClick(id)}
+                className={`${styles.link} ${
+                  activeSection === id ? styles.active : ""
+                }`}
+              >
+                {id.charAt(0).toUpperCase() + id.slice(1)}
+              </motion.a>
+            </li>
+          ))}
+          <li>
+            <ThemeToggle />
+          </li>
+        </ul>
+
+        {/* Hamburger */}
+        <div className={styles.menuIcon} onClick={() => setIsMenuOpen(true)} data-theme={theme}>
+          <Menu size={28} />
+        </div>
+      </motion.nav>
+
+      {/* Mobile Sidebar */}
       <AnimatePresence>
         {isMenuOpen && (
           <>
             <motion.div
               className={styles.sidebar}
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              style={{
-                backgroundColor: theme === "light" ? "#fff" : "#000000",
-              }}
+              variants={sidebarVariants}
+              initial="hidden"
+              animate="show"
+              exit="exit"
             >
-              <div className={styles.sidebarContent}>
-                <div>
-                  <div>
+              <button onClick={() => setIsMenuOpen(false)} className={styles.closeIcon}>
+                <X size={28} />
+              </button>
+              <motion.ul className={styles.sidebarLinks} data-theme={theme}>
+                {sections.map((id) => (
+                  <motion.li key={id} variants={itemVariants}>
                     <button
-                      className={styles.menuIcon}
-                      onClick={() => setIsMenuOpen(false)}
-                      style={{ color: theme === "light" ? "#555" : "#bbb" }}
-                      aria-label="Close menu"
+                      onClick={() => handleClick(id)}
+                      className={`${styles.link} ${
+                        activeSection === id ? styles.active : ""
+                      }`}
                     >
-                      ✕
+                      {id.charAt(0).toUpperCase() + id.slice(1)}
                     </button>
-                  </div>
-                  <ul className={styles.sidebarLinks}>
-                    {sections.map((id) => (
-                      <li key={id}>
-                        <button
-                          onClick={() => handleClick(id)}
-                          className={`${styles.link} ${
-                            activeSection === id ? styles.active : ""
-                          }`}
-                          style={{ color: theme === "light" ? "#555" : "#bbb" , fontWeight:"bold"}}
-                        >
-                          {id.charAt(0).toUpperCase() + id.slice(1)}
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                  <div
-                    className={styles.sidebarToggle}
-                    style={{ marginTop: "1rem", textAlign: "center" }}
-                  >
-                    <ThemeToggle />
-                  </div>
-                </div>
-              </div>
+                  </motion.li>
+                ))}
+              </motion.ul>
+              <ThemeToggle />
             </motion.div>
 
+            {/* Overlay */}
             <motion.div
               className={styles.overlay}
-              onClick={() => setIsMenuOpen(false)}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => setIsMenuOpen(false)}
             />
           </>
         )}

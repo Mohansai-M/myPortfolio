@@ -1,23 +1,180 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Montserrat:wght@400;700&display=swap');
+/* ==========================
+   Fonts
+   ========================== */
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Quicksand:wght@400;600;700&family=Montserrat:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-* {
-  box-sizing: border-box;
-}
-
-html {
-  font-family: 'Quicksand', sans-serif;
-}
-
-body {
-  transition: all 0.3s ease;
-  margin: 0; padding: 0
-}
-
-
+/* ==========================
+   Base Variables (Light as default)
+   ========================== */
 :root {
-  --accent: #1a73e8;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif,
+               "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  --neon-green:#39ff14;
+
+  /* Light base + softer blobs */
+  --bg-base:#ffffff;
+  --blob-1: radial-gradient(circle at 30% 30%, rgba(100,255,150,0.25), transparent 65%);
+  --blob-2: radial-gradient(circle at 70% 70%, rgba(120,200,150,0.2), transparent 70%);
+  --blob-3: radial-gradient(circle at 50% 80%, rgba(0,180,255,0.2), transparent 65%);
+  --bg-blobs: var(--blob-1), var(--blob-2), var(--blob-3);
+
+  /* Typography colors (light) */
+  --text-primary:#1a1a1a;
+  --text-secondary:#333;
+  --text-muted:rgba(0,0,0,0.6);
+  --text-dark : rgb(142, 247, 155);
+  --text-light : rgb(61, 109, 67);
+
+  /* Surfaces / borders / shadows */
+  --bg-surface: rgba(255,255,255,0.08);
+  --border-color: rgba(0,0,0,0.15);
+  --shadow-color: rgba(0,0,0,0.3);
+
+  /* Transitions */
+  --transition-fast: .2s ease-in-out;
+  --transition-medium: .35s ease-in-out;
+  --transition-slow: .6s ease-in-out;
+  --ease: cubic-bezier(0.4,0,0.2,1);
+
+  color-scheme: light;
 }
 
-html.dark {
-  --accent: #80bfff;
+/* ==========================
+   Dark Theme – SOLID only
+   ========================== */
+[data-theme="dark"] {
+  --bg-base:#013220; /* solid dark green only */
+  --bg-blobs:none;   /* remove blobs completely */
+
+  --text-primary:#d2e5d2;
+  --text-secondary:#a8bfb0;
+  --text-muted:rgba(210,229,210,0.7);
+
+  --bg-surface: rgba(0,0,0,0.45);
+  --border-color: rgba(210,229,210,0.3);
+  --shadow-color: rgba(0,50,0,0.8);
+
+  color-scheme: dark;
 }
+
+/* ==========================
+   Reset / Base
+   ========================== */
+* {
+  margin:0; padding:0; box-sizing:border-box;
+  transition:
+    color var(--transition-medium) var(--ease),
+    background-color var(--transition-medium) var(--ease),
+    border-color var(--transition-medium) var(--ease),
+    transform var(--transition-fast) var(--ease);
+}
+
+html,body {
+  height:100%;
+  width:100%;
+  font-family:var(--font-sans);
+  background:transparent !important; /* let background layer show */
+  color:var(--text-primary);
+  scroll-behavior:smooth;
+  overflow-x:hidden;
+}
+
+/* ==========================
+   Global Background
+   ========================== */
+.Global_background {
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-2;
+  isolation:isolate;
+}
+
+/* Solid base */
+.Global_background::before {
+  content:"";
+  position:absolute; inset:0;
+  background: var(--bg-base);
+}
+
+/* Blobs layer (light mode only, removed in dark mode) */
+.Global_background::after {
+  content:"";
+  position:absolute; inset:0;
+  background-image: var(--bg-blobs);
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:140% 140%;
+  filter: blur(40px);
+  opacity:.9;
+  animation: blobMove 45s ease-in-out infinite alternate;
+}
+
+/* Blob motion (only affects light theme now) */
+@keyframes blobMove {
+  0%   { transform: translate(0,0) scale(1); }
+  33%  { transform: translate(50px,-30px) scale(1.1); }
+  66%  { transform: translate(-40px,50px) scale(1.05); }
+  100% { transform: translate(0,0) scale(1); }
+}
+
+/* ==========================
+   Canvas (particles)
+   ========================== */
+canvas {
+  width:100vw!important;
+  height:100vh!important;
+  position:fixed; inset:0;
+  z-index:--1;
+  pointer-events:none;
+}
+
+/* ==========================
+   Typography
+   ========================== */
+h1,h2,h3,nav,.brand,.nav-link {
+  font-family:'Anton',sans-serif;
+  color:var(--text-primary);
+  letter-spacing:-.02em;
+  font-weight:700;
+}
+p,span,li,a,button {
+  color:var(--text-secondary);
+  line-height:1.6;
+  font-weight:400;
+  font-feature-settings:"liga" 1;
+}
+.muted { color:var(--text-muted); }
+
+/* ==========================
+   Utilities
+   ========================== */
+.text-neonGreen { color:var(--neon-green); text-shadow:0 0 6px var(--neon-green); }
+.border-neonGreen { border-color:var(--neon-green); box-shadow:0 0 8px var(--neon-green); }
+
+.bg-surface {
+  background:var(--bg-surface);
+  backdrop-filter:saturate(180%) blur(12px);
+  border-radius:1rem;
+  box-shadow:0 8px 24px var(--shadow-color);
+  border:1px solid var(--border-color);
+}
+
+/* ==========================
+   Interactive
+   ========================== */
+a,button,.nav-link {
+  cursor:pointer;
+  text-decoration:none;
+  outline-offset:4px; outline-color:transparent; outline-style:solid; outline-width:2px;
+}
+
+
+/* Float helper */
+@keyframes float {
+  0%,100%{ transform:translateY(0) rotate(0deg); }
+  50%{ transform:translateY(-18px) rotate(5deg); }
+}
+.animate-float { animation: float 15s linear infinite; }

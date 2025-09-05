@@ -3,5 +3,18 @@
   border: none;
   font-size: 1.3rem;
   cursor: pointer;
-  color: var(--nav-text);
+  color: var(--text-light);
+}
+
+.toggle:hover {
+  opacity:.95;
+  transform:scale(1.04);
+  color: var(--text-dark);
+}
+
+
+[data-theme="dark"] .toggle:hover {
+  opacity:.95;
+  transform:scale(1.04);
+  color: var(--text-dark);
 }

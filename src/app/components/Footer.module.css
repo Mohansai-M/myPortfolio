@@ -1,38 +1,83 @@
 .footer {
-  padding: 2rem;
+  padding: 2rem 2rem 5rem;
+  background: transparent;
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 .container {
   max-width: 900px;
   margin: 0 auto;
-  position: relative;
-}
-
-.links a {
-  margin: 0 0.75rem;
-  font-size: 1.4rem;
-  color: inherit;
-  transition: color 0.2s ease;
-}
-
-.links a:hover {
-  color: #1a73e8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
 .copy {
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   font-size: 0.9rem;
-  color: var(--footer-text-muted);
+  font-family: 'Quicksand', sans-serif;
+}
+
+.message {
+  font-size: 0.95rem;
+  color: var(--neon-green);
+  text-shadow: 0 0 2px var(--neon-green),
+               0 0 5px var(--neon-green),
+               0 0 10px var(--neon-green);
+  font-family: 'Quicksand', sans-serif;
+  margin-bottom: 1rem;
+}
+
+/* Scroll-to-top wrapper */
+.scrollWrapper {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  pointer-events: none; 
 }
 
 .scrollTop {
-  position: absolute;
-  right: 1rem;
-  top: 1rem;
   background: transparent;
   border: none;
-  font-size: 1.2rem;
+  border-radius: 50%;
+  color: var(--neon-green);
+  font-size: 1.5rem;
   cursor: pointer;
-  color: var(--footer-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  pointer-events: auto; /* re-enables pointer events for button */
+}
+
+.scrollTop:hover {
+  background: rgba(39, 201, 63, 0.1);
+  box-shadow: 0 0 15px var(--neon-green);
+}
+
+/* Theme variations */
+.light .copy {
+  color: #222;
+}
+
+.dark .copy {
+  color: #ccc;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .scrollWrapper {
+    bottom: 1rem;
+    right: 1rem;
+  }
 }

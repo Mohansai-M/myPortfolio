@@ -37,11 +37,7 @@ const ProjectsSection = () => {
   const theme = useSelector((state) => state.theme.mode);
 
   return (
-    <section
-      id="projects"
-      className={styles.projects}
-      style={{ backgroundColor: theme === "light" ? "#f9f9f9" : "#0e0e0e" }}
-    >
+    <section id="projects" className={styles.projects}>
       <motion.div
         className={styles.container}
         initial={{ opacity: 0, y: 40 }}
@@ -51,50 +47,26 @@ const ProjectsSection = () => {
       >
         <h2
           className={styles.heading}
-          style={{ color: theme === "light" ? "#222" : "#fff" }}
         >
-          Projects
+          Crafted with Code
         </h2>
 
         <div className={styles.grid}>
           {projects.map((project, index) => (
-            <div
-              key={index}
-              className={styles.card}
-              style={{
-                backgroundColor: theme === "light" ? "white" : "#1a1a1a",
-                borderColor: theme === "light" ? "#e3e3e3" : "#2a2a2a",
-                boxShadow:
-                  theme === "light"
-                    ? "0 4px 10px rgba(0,0,0,0.06)"
-                    : "0 4px 10px rgba(255,255,255,0.04)",
-              }}
-            >
+            <div key={index} className={styles.card}>
               <h3
                 className={styles.title}
-                style={{
-                  color: theme === "light" ? "#1a1a1a" : "#eee",
-                }}
               >
                 {project.title}
               </h3>
               <p
                 className={styles.description}
-                style={{ color: theme === "light" ? "#444" : "#ccc" }}
               >
                 {project.description}
               </p>
               <ul className={styles.tech}>
                 {project.tech.map((tech, i) => (
-                  <li
-                    key={i}
-                    style={{
-                      backgroundColor: theme === "light" ? "#eef1f6" : "#333",
-                      color: theme === "light" ? "#333" : "#ddd",
-                    }}
-                  >
-                    {tech}
-                  </li>
+                  <li key={i}>{tech}</li>
                 ))}
               </ul>
               <div className={styles.links}>
@@ -103,9 +75,6 @@ const ProjectsSection = () => {
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{
-                      color: theme === "light" ? "#1a73e8" : "#80bfff",
-                    }}
                   >
                     <FaGithub /> GitHub
                   </a>
@@ -115,9 +84,6 @@ const ProjectsSection = () => {
                     href={project.demo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{
-                      color: theme === "light" ? "#1a73e8" : "#80bfff",
-                    }}
                   >
                     <FaExternalLinkAlt /> Live
                   </a>
