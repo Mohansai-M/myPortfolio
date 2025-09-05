@@ -282,10 +282,27 @@ const OpenSourceSection = () => {
                       {isOpen && (
                         <motion.div
                           className={styles.expand}
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.35, ease: "easeInOut" }}
+                          initial="collapsed"
+                          animate="open"
+                          exit="collapsed"
+                          variants={{
+                            open: {
+                              height: "auto",
+                              opacity: 1,
+                              transition: {
+                                duration: 0.35,
+                                ease: [0.4, 0, 0.2, 1],
+                              },
+                            },
+                            collapsed: {
+                              height: 0,
+                              opacity: 0,
+                              transition: {
+                                duration: 0.3,
+                                ease: [0.4, 0, 0.2, 1],
+                              },
+                            },
+                          }}
                         >
                           <div className={styles.expandInner}>
                             <ul className={styles.points}>

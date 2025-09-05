@@ -33,7 +33,7 @@
   transition: all 0.3s ease-in-out;
   display: flex;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: 1rem 2rem 1rem 0;
   justify-content: space-between;
   font-family: 'Quicksand', sans-serif;
   background: transparent;
