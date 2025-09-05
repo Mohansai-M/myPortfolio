@@ -9,6 +9,40 @@ import { shaderMaterial } from "@react-three/drei";
 // Custom shader material for twinkling & drifting stars
 const StarMaterial = shaderMaterial(
   { uTime: 0, uColor: new THREE.Color("#14a314") },
+  // Vertex Shader
+  `
+  uniform float uTime;
+  void main() {
+    vec3 pos = position;
+
+    // Floating motion along Y axis
+    pos.y += mod(uTime * 0.5 + pos.y + 20.0, 40.0) - 20.0;
+
+    // Slow rotation around Y axis
+    float angle = uTime * 0.1;
+    float x = pos.x * cos(angle) - pos.z * sin(angle);
+    float z = pos.x * sin(angle) + pos.z * cos(angle);
+    pos.x = x;
+    pos.z = z;
+
+    vec4 modelPosition = modelMatrix * vec4(pos, 1.0);
+    vec4 viewPosition = viewMatrix * modelPosition;
+    vec4 projectionPosition = projectionMatrix * viewPosition;
+    gl_Position = projectionPosition;
+
+    // Point size + twinkle
+    gl_PointSize = 2.0 + 1.5 * sin(uTime * 2.0 + pos.x * 10.0);
+  }
+  `,
+  // Fragment Shader
+  `
+  uniform vec3 uColor;
+  void main() {
+    float dist = distance(gl_PointCoord, vec2(0.5));
+    if (dist > 0.5) discard;
+    gl_FragColor = vec4(uColor, 1.0);
+  }
+`
 );
 
 extend({ StarMaterial });
