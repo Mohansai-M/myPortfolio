@@ -1,6 +1,4 @@
 "use client";
-
-import styles from "./page.module.css";
 import AboutSection from "./components/AboutSection";
 import HeroSection from "./components/HeroSection";
 import ProjectsSection from "./components/ProjectsSection";
@@ -10,8 +8,6 @@ import ContactSection from "./components/ContactSection";
 import AwardsSection from "./components/AwardsSection";
 import OpenSourceSection from "./components/OpensourcesSection";
 import Footer from "./components/Footer";
-import IntroPage from "./components/IntroPage"; 
-import { useState } from "react";
 import { useSelector } from "react-redux";
 
 export default function Home() {
