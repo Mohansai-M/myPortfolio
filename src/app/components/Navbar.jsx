@@ -37,6 +37,16 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleScrollToSection = (id) => {
+    setIsMenuOpen(false); 
+    if (id === "home") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   const sidebarVariants = {
     hidden: { x: "100%" },
     show: { x: 0, transition: { type: "spring", stiffness: 250, damping: 25 } },
@@ -76,11 +86,14 @@ const Navbar = () => {
               >
                 <Link
                   href={id === "home" ? "/" : `/#${id}`}
-                  scroll={false} 
+                  scroll={false}
                   className={`${styles.link} ${
                     activeSection === id ? styles.active : ""
                   }`}
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleScrollToSection(id);
+                  }}
                 >
                   {id.charAt(0).toUpperCase() + id.slice(1)}
                 </Link>
@@ -128,7 +141,10 @@ const Navbar = () => {
                       className={`${styles.link} ${
                         activeSection === id ? styles.active : ""
                       }`}
-                      onClick={() => setIsMenuOpen(false)}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleScrollToSection(id);
+                      }}
                     >
                       {id.charAt(0).toUpperCase() + id.slice(1)}
                     </Link>
