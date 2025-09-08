@@ -6,15 +6,25 @@
   color: var(--text-light);
 }
 
+
+[data-theme="dark"] .toggle
+{
+    background: none;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  color: var(--text-dark);
+}
+
 .toggle:hover {
   opacity:.95;
-  transform:scale(1.04);
+  transform:scale(1.2);
   color: var(--text-dark);
 }
 
 
 [data-theme="dark"] .toggle:hover {
   opacity:.95;
-  transform:scale(1.04);
-  color: var(--text-dark);
+  transform:scale(1.2);
+  color: var(--brand-accent);
 }

@@ -86,7 +86,7 @@ const ContactSection = () => {
           variants={itemVariants}
           whileHover={{
             scale: 1.08,
-            boxShadow: "0 0 25px var(--neon-green), 0 0 60px #0ff",
+            boxShadow: "0 0 15px var(--brand-accent), 0 0 60px rgba(166, 0, 255, 1)",
           }}
           whileTap={{ scale: 0.95 }}
         >
@@ -95,18 +95,18 @@ const ContactSection = () => {
 
         <motion.div className={styles.socials} variants={itemVariants}>
           <motion.a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/mohansaim20/"
             target="_blank"
             aria-label="LinkedIn"
-            whileHover={{ scale: 1.2, color: "rgba(9, 163, 235, 1)" }}
+            whileHover={{ scale: 1.2, color: "rgba(0, 101, 208, 1)" }}
           >
             <FaLinkedin />
           </motion.a>
           <motion.a
-            href="https://github.com"
+            href="https://github.com/Mohansai-M"
             target="_blank"
             aria-label="GitHub"
-            whileHover={{ scale: 1.2, color: "#39ff14" }}
+            whileHover={{ scale: 1.2, color: theme === "dark" ? "#ffffffff": "#000000ff" }}
           >
             <FaGithub />
           </motion.a>

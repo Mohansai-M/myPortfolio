@@ -4,6 +4,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Quicksand:wght@400;600;700&family=Montserrat:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
+
+
 /* ==========================
    Base Variables (Light as default)
    ========================== */
@@ -11,21 +13,21 @@
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif,
                "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
-  --neon-green:#39ff14;
+  --brand-accent:#8214ff; /* Purple accent */
 
   /* Light base + softer blobs */
   --bg-base:#ffffff;
-  --blob-1: radial-gradient(circle at 30% 30%, rgba(100,255,150,0.25), transparent 65%);
-  --blob-2: radial-gradient(circle at 70% 70%, rgba(120,200,150,0.2), transparent 70%);
-  --blob-3: radial-gradient(circle at 50% 80%, rgba(0,180,255,0.2), transparent 65%);
+  --blob-1: radial-gradient(circle at 30% 30%, rgba(203, 100, 255, 0.25), transparent 65%);
+  --blob-2: radial-gradient(circle at 70% 70%, rgba(168, 120, 200, 0.2), transparent 70%);
+  --blob-3: radial-gradient(circle at 50% 80%, rgba(140, 0, 255, 0.2), transparent 65%);
   --bg-blobs: var(--blob-1), var(--blob-2), var(--blob-3);
 
   /* Typography colors (light) */
   --text-primary:#1a1a1a;
   --text-secondary:#333;
   --text-muted:rgba(0,0,0,0.6);
-  --text-dark : rgb(142, 247, 155);
-  --text-light : rgb(61, 109, 67);
+  --text-dark: rgb(209, 142, 247);
+  --text-light: rgb(90, 61, 109);
 
   /* Surfaces / borders / shadows */
   --bg-surface: rgba(255,255,255,0.08);
@@ -41,20 +43,33 @@
   color-scheme: light;
 }
 
+/* ================= WRAPPER ================= */
+:root{
+
+  --brand-accent-2: #7d1aff;
+  --transition-fast: 150ms;
+  --transition-medium: 300ms;
+  --ease: cubic-bezier(.2,.9,.3,1);
+}
+
+/* Respect user's reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
 /* ==========================
    Dark Theme – SOLID only
    ========================== */
 [data-theme="dark"] {
-  --bg-base:#013220; /* solid dark green only */
+  --bg-base:#1e0132; /* solid deep purple */
   --bg-blobs:none;   /* remove blobs completely */
 
-  --text-primary:#d2e5d2;
-  --text-secondary:#a8bfb0;
-  --text-muted:rgba(210,229,210,0.7);
+  --text-primary:#ded2e5;
+  --text-secondary:#b7a8bf;
+  --text-muted:rgba(222, 210, 229, 0.7);
 
   --bg-surface: rgba(0,0,0,0.45);
-  --border-color: rgba(210,229,210,0.3);
-  --shadow-color: rgba(0,50,0,0.8);
+  --border-color: rgba(222, 210, 229, 0.3);
+  --shadow-color: rgba(37, 0, 50, 0.8);
 
   color-scheme: dark;
 }
@@ -151,8 +166,14 @@ p,span,li,a,button {
 /* ==========================
    Utilities
    ========================== */
-.text-neonGreen { color:var(--neon-green); text-shadow:0 0 6px var(--neon-green); }
-.border-neonGreen { border-color:var(--neon-green); box-shadow:0 0 8px var(--neon-green); }
+.text-accent { 
+  color:var(--brand-accent); 
+  text-shadow:0 0 6px rgba(130, 20, 255, 0.7); 
+}
+.border-accent { 
+  border-color:var(--brand-accent); 
+  box-shadow:0 0 8px rgba(130, 20, 255, 0.6); 
+}
 
 .bg-surface {
   background:var(--bg-surface);
@@ -178,3 +199,86 @@ a,button,.nav-link {
   50%{ transform:translateY(-18px) rotate(5deg); }
 }
 .animate-float { animation: float 15s linear infinite; }
+
+/* ================= CAROUSEL (react-slick) ================= */
+
+/* Slider wrapper */
+.slick-slider {
+  position: relative;  
+}
+
+.slick-list {
+  border-radius: 1rem;
+  overflow: hidden;
+}
+/* Slide spacing */
+.slick-slide {
+  padding: 0 0.25rem;
+}
+
+/* ====== ARROWS ====== */
+.slick-prev,
+.slick-next {
+  width: 45px !important;
+  height: 45px !important;
+  z-index: 20 !important;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  font-size: 32px !important; /* consistent size */
+  color: #9114ff !important; /* default purple */
+  text-shadow: 0 0 5px rgba(192, 20, 255, 0.645) !important;
+  opacity: 0.9 !important;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.slick-prev:hover:before,
+.slick-next:hover:before {
+  color: #b53cff !important; /* brighter hover purple */
+  transform: scale(1.2);
+}
+
+/* Dark theme override for arrows */
+[data-theme="dark"] .slick-prev:before,
+[data-theme="dark"] .slick-next:before {
+  color: #fff !important; /* white arrows in dark */
+  text-shadow: 0 0 5px rgba(181, 20, 255, 0.596) !important;
+}
+
+[data-theme="dark"] .slick-prev:hover:before,
+[data-theme="dark"] .slick-next:hover:before {
+  color: #c27bef !important; /* white arrows in dark */
+  transform: scale(1.2);
+}
+
+
+/* ====== DOTS ====== */
+.slick-dots {
+  bottom: -2.5rem !important;
+}
+
+.slick-dots li button:before {
+  font-size: 12px;
+  color: #8d14ff !important;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #b53cff !important;
+  opacity: 1 !important;
+  text-shadow: 0 0 6px rgba(181, 20, 255, 0.9) !important;
+}
+
+/* Dark theme dots */
+[data-theme="dark"] .slick-dots li button:before {
+  color: #bbb !important;
+  opacity: 0.6;
+}
+
+[data-theme="dark"] .slick-dots li.slick-active button:before {
+  color: #fff !important;
+  opacity: 1;
+  text-shadow: 0 0 8px rgba(181, 20, 255, 1) !important;
+}

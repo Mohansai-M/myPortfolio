@@ -59,14 +59,14 @@ const HeroSection = () => {
 
         {/* Typewriter/Slide Title */}
         <motion.h2 className={styles.title} variants={itemVariants}>
-          Full Stack Developer — React / Next.js / TypeScript / MERN
+          Full-Stack Developer • React / Next.js / TypeScript / MERN
         </motion.h2>
 
         <motion.p className={styles.description} variants={itemVariants}>
-          Frontend-focused full stack engineer specializing in scalable React &
-          Next.js applications — with hands-on production experience in
-          TypeScript and the MERN stack. I craft performant, accessible, and
-          modern UIs that deliver real business value.
+          Frontend-focused full-stack engineer with production experience in
+          React, Next.js, TypeScript, and the MERN stack. I build scalable,
+          performant, and accessible applications with modern UIs that create
+          real business impact.
         </motion.p>
 
         <motion.div className={styles.cta} variants={itemVariants}>
@@ -75,8 +75,6 @@ const HeroSection = () => {
             className={styles.button}
             whileHover={{
               scale: 1.08,
-              boxShadow:
-                "0 0 25px var(--color-neon), 0 0 50px var(--color-neon)",
             }}
             whileTap={{ scale: 0.95 }}
           >
@@ -87,8 +85,7 @@ const HeroSection = () => {
             className={styles.link}
             whileHover={{
               scale: 1.05,
-              boxShadow:
-                "0 0 30px var(--color-neon), 0 0 60px var(--color-neon)",
+              boxShadow: "none"
             }}
             whileTap={{ scale: 0.95 }}
           >

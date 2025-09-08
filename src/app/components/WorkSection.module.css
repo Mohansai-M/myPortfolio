@@ -16,8 +16,8 @@
   width: 100%;
   height: 100%;
   background:
-    radial-gradient(circle at 20% 20%, rgba(57, 255, 20, 0.2), transparent 30%),
-    radial-gradient(circle at 80% 80%, rgba(0, 255, 255, 0.15), transparent 25%);
+    radial-gradient(circle at 20% 20%, rgba(130, 20, 255, 0.15), transparent 30%),
+    radial-gradient(circle at 80% 80%, rgba(192, 132, 252, 0.12), transparent 25%);
   animation: moveBg 20s linear infinite;
   z-index: 0;
   pointer-events: none;
@@ -33,14 +33,17 @@
 /* Section heading */
 .heading {
   font-family: 'Anton', sans-serif;
-  font-size: 2.25rem;
-  font-weight: 800;
+  font-size: 2.2rem;
+  font-weight: 400;
   text-align: center;
   margin-bottom: 4rem;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: var(--neon-green);
-  text-shadow: 0 0 4px var(--neon-green), 0 0 12px rgba(57, 255, 20, 0.7);
+  color: var(--text-light);
+   text-shadow:
+    0 0 1px var(--brand-accent),
+    0 0 2px var(--brand-accent),
+    0 0 30px var(--brand-accent);
   position: relative;
   z-index: 1;
   user-select: none;
@@ -62,11 +65,11 @@
   left: 50%;
   width: 6px;
   height: 100%;
-  background: linear-gradient(180deg, var(--neon-green), #00ffff, var(--neon-green));
+  background: linear-gradient(180deg, var(--brand-accent), #c084fc, var(--brand-accent));
   transform: translateX(-50%);
   z-index: 2;
   border-radius: 3px;
-  filter: drop-shadow(0 0 5px var(--neon-green));
+  filter: drop-shadow(0 0 5px var(--brand-accent));
 }
 
 /* Timeline item container */
@@ -95,8 +98,8 @@
   border-radius: 14px;
   padding: 1.5rem 2rem;
   backdrop-filter: blur(8px);
-  border: 1.5px solid rgba(57, 255, 20, 0.3);
-  box-shadow: 0 0 20px rgba(57, 255, 20, 0.25);
+  border: 1.5px solid rgba(130, 20, 255, 0.3);
+  box-shadow: 0 0 20px rgba(130, 20, 255, 0.25);
   color: var(--text-primary);
   transition: transform 0.35s cubic-bezier(.25,.8,.25,1),
               box-shadow 0.35s cubic-bezier(.25,.8,.25,1),
@@ -109,8 +112,8 @@
 .content:hover,
 .content:focus-within {
   transform: translateY(-6px);
-  box-shadow: 0 0 30px rgba(57, 255, 20, 0.5), 0 10px 30px rgba(0, 255, 200, 0.1);
-  filter: drop-shadow(0 0 12px rgba(57, 255, 20, 0.5));
+  box-shadow: 0 0 30px rgba(130, 20, 255, 0.5), 0 10px 30px rgba(192, 132, 252, 0.15);
+  filter: drop-shadow(0 0 12px rgba(130, 20, 255, 0.5));
   outline: none;
 }
 
@@ -119,12 +122,12 @@
   font-size: 1.3rem;
   font-weight: 700;
   margin-bottom: 0.4rem;
-  color: rgba(26, 150, 5, 0.5);
+    color: var(--text-light);
   user-select: text;
 }
 
-[data-theme="dark"] .role{
-  color: rgb(135, 194, 126);
+[data-theme="dark"] .role {
+  color: #d8b4fe; /* lighter lavender for dark mode */
 }
 
 .company {
@@ -160,7 +163,7 @@
 .bulletIcon {
   position: absolute;
   left: 0;
-  color: var(--neon-green);
+  color: var(--brand-accent);
   font-weight: bold;
   user-select: none;
   font-size: 1.2rem;
@@ -174,33 +177,35 @@
 
 [data-theme="dark"] .ambient {
   background:
-    radial-gradient(circle at 20% 20%, rgba(57, 255, 20, 0.15), transparent 30%),
-    radial-gradient(circle at 80% 80%, rgba(0, 255, 255, 0.1), transparent 25%);
+    radial-gradient(circle at 20% 20%, rgba(130, 20, 255, 0.15), transparent 30%),
+    radial-gradient(circle at 80% 80%, rgba(192, 132, 252, 0.1), transparent 25%);
 }
+
 
 [data-theme="dark"] .heading {
-  color: var(--neon-green);
-  text-shadow: 0 0 4px var(--neon-green), 0 0 12px rgba(57, 255, 20, 0.7);
+  color:var(--text-dark);
+  text-shadow:
+    0 0 1px var(--brand-accent),
+    0 0 2px var(--brand-accent),
+    0 0 30px var(--brand-accent);
 }
-
 [data-theme="dark"] .timelineItem .content {
-  background: rgba(0, 50, 0, 0.25);
-  border: 1.5px solid rgba(57, 255, 20, 0.3);
-  box-shadow: 0 0 20px rgba(57, 255, 20, 0.25);
+  background: rgba(50, 0, 80, 0.25);
+  border: 1.5px solid rgba(130, 20, 255, 0.3);
+  box-shadow: 0 0 20px rgba(130, 20, 255, 0.25);
   color: var(--text-primary);
 }
-
 [data-theme="dark"] .timelineItem  {
-  color: rgba(26, 150, 5, 0.6);
+  color: rgba(92, 5, 150, 0.6);
 }
 
 [data-theme="dark"] .timelineItem .company {
-  color: rgba(200, 230, 200, 0.6);
+  color: rgba(230, 210, 240, 0.6);
 }
 
 [data-theme="dark"] .verticalLine {
-  background: linear-gradient(180deg, var(--neon-green), #00ffff, var(--neon-green));
-  filter: drop-shadow(0 0 5px var(--neon-green));
+  background: linear-gradient(180deg, var(--brand-accent), #c084fc, var(--brand-accent));
+  filter: drop-shadow(0 0 5px var(--brand-accent));
 }
 
 [data-theme="dark"] .bullets li {
@@ -208,7 +213,7 @@
 }
 
 [data-theme="dark"] .bulletIcon {
-  color: var(--neon-green);
+  color: var(--brand-accent);
 }
 
 /* Responsive Design */

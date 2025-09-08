@@ -22,6 +22,7 @@ const scrollToTop = () => {
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
+      data-theme={theme}
     >
       <div className={styles.container}>
         <p className={styles.copy}>
@@ -29,7 +30,6 @@ const scrollToTop = () => {
         </p>
         <p className={styles.message}>Let's connect, built with passion ⚡</p>
       </div>
-
       {/* Scroll-to-top button */}
       <div className={styles.scrollWrapper}>
         <motion.button

@@ -25,13 +25,10 @@ const AwardsSection = () => {
   const sectionRef = useRef(null);
 
   return (
-    <section ref={sectionRef} className={styles.awards}>
+    <section ref={sectionRef} className={styles.awards} data-theme={theme}>
       <div className={styles.ambient}></div>
-
       <motion.h2
-        className={`${styles.heading} ${
-          theme === "light" ? styles.lightText : styles.darkText
-        }`}
+        className={styles.heading}
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -39,7 +36,6 @@ const AwardsSection = () => {
       >
         Honors & High Fives
       </motion.h2>
-
       <div className={styles.grid}>
         {awards.map((award, idx) => (
           <motion.div

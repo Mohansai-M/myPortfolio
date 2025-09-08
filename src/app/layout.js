@@ -2,26 +2,44 @@
 "use client";
 
 import "./globals.css";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import { store } from "./store/index";
 import LayoutWrapper from "./components/LayoutWrappper";
 import BackgroundCanvas from "./components/BackgroundCanvas";
-import Navbar from "./components/Navbar";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
+import { useEffect } from "react";
+
+// Client component to handle theme
+function ThemeWrapper({ children }) {
+  const theme = useSelector((state) => state.theme.mode); // pick only mode
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme || "light");
+  }, [theme]);
+
+  return <>{children}</>;
+}
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body>
-        <div>
-          <Provider store={store}>
+    <Provider store={store}>
+      {/* HTML stays at the top level */}
+      <html lang="en">
+        <body>
+          {/* ThemeWrapper inside body */}
+          <ThemeWrapper>
             <LayoutWrapper>
-              <BackgroundCanvas />
+              <Navbar />
+              <BackgroundCanvas props={false} />
               <main>{children}</main>
+              <Footer />
             </LayoutWrapper>
-          </Provider>
-        </div>
-      </body>
-    </html>
+          </ThemeWrapper>
+        </body>
+      </html>
+    </Provider>
   );
 }

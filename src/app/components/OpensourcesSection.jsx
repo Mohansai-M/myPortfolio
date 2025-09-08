@@ -204,7 +204,7 @@ const OpenSourceSection = () => {
               <span className={`${styles.dot} ${styles.yellow}`} />
               <span className={`${styles.dot} ${styles.green}`} />
               <div className={styles.termTitle}>
-                {activeRepo.repoName} — terminal
+                {activeRepo.repoName} - terminal
               </div>
               <a
                 className={styles.repoLink}

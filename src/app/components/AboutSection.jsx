@@ -36,15 +36,17 @@ const AboutSection = () => {
         </motion.h2>
 
         <motion.p className={styles.text} variants={itemVariants}>
-          Turning ideas into <span className={styles.highlight}>scalable</span>,{" "}
-          <span className={styles.highlight}>modern</span> web experiences. I’m
-          Mohansai Mallineni, a full-stack developer who thrives on building
-          clean, performant apps and experimenting with the latest tech.
+          Building <span className={styles.highlight}>scalable</span> and&nbsp;
+          <span className={styles.highlight}>modern</span> web experiences that
+          perform beautifully. I'm Mohansai Mallineni, a full-stack developer
+          passionate about creating clean, fast apps and exploring the latest
+          tech.
         </motion.p>
 
         <motion.p className={styles.text} variants={itemVariants}>
-          Beyond code, I explore open source, dabble in AI, and chase fresh ways
-          to make digital experiences smoother, faster, and more impactful.
+          I dive into open source, experiment with AI, and constantly find new
+          ways to make digital experiences smoother, smarter, and more
+          impactful.
         </motion.p>
       </motion.div>
     </section>

@@ -6,19 +6,16 @@ import * as THREE from "three";
 import { useSelector } from "react-redux";
 import { shaderMaterial } from "@react-three/drei";
 
-// Custom shader material for twinkling & drifting stars
+// Custom shader material
 const StarMaterial = shaderMaterial(
-  { uTime: 0, uColor: new THREE.Color("#14a314") },
-  // Vertex Shader
+  { uTime: 0, uColor: new THREE.Color("#8b5cf6") }, // default purple
   `
   uniform float uTime;
   void main() {
     vec3 pos = position;
 
-    // Floating motion along Y axis
     pos.y += mod(uTime * 0.5 + pos.y + 20.0, 40.0) - 20.0;
 
-    // Slow rotation around Y axis
     float angle = uTime * 0.1;
     float x = pos.x * cos(angle) - pos.z * sin(angle);
     float z = pos.x * sin(angle) + pos.z * cos(angle);
@@ -30,11 +27,9 @@ const StarMaterial = shaderMaterial(
     vec4 projectionPosition = projectionMatrix * viewPosition;
     gl_Position = projectionPosition;
 
-    // Point size + twinkle
     gl_PointSize = 2.0 + 1.5 * sin(uTime * 2.0 + pos.x * 10.0);
   }
   `,
-  // Fragment Shader
   `
   uniform vec3 uColor;
   void main() {
@@ -42,7 +37,7 @@ const StarMaterial = shaderMaterial(
     if (dist > 0.5) discard;
     gl_FragColor = vec4(uColor, 1.0);
   }
-`
+  `
 );
 
 extend({ StarMaterial });
@@ -52,9 +47,9 @@ function StarField({ count, color }) {
   const positions = useMemo(() => {
     const arr = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
-      arr[i * 3] = (Math.random() - 0.5) * 40; // x
-      arr[i * 3 + 1] = (Math.random() - 0.5) * 40; // y
-      arr[i * 3 + 2] = (Math.random() - 0.5) * 40; // z
+      arr[i * 3] = (Math.random() - 0.5) * 40;
+      arr[i * 3 + 1] = (Math.random() - 0.5) * 40;
+      arr[i * 3 + 2] = (Math.random() - 0.5) * 40;
     }
     return arr;
   }, [count]);
@@ -78,12 +73,19 @@ function StarField({ count, color }) {
   );
 }
 
-export default function NeonGreenBackground() {
+export default function NeonBackground(props) {
+  console.log(props,"boolean_check")
   const theme = useSelector((state) => state.theme.mode);
-  const starColorPrimary = theme === "dark" ? "#14a314" : "#27c93f";
-  const starColorSecondary = theme === "dark" ? "#0b3b0b" : "#39ff14";
+  const effect = useSelector((state) => state.effect.enabled);
+  console.log(effect,"effect")
+  const starColorPrimary =
+    theme === "dark" ? "#8b5cf6" /* purple-500 */ : "#a855f7"; /* purple-400 */
+  const starColorSecondary =
+    theme === "dark" ? "#f97316" /* orange-500 */ : "#fb923c"; /* orange-400 */
 
   return (
+    <>
+    {effect ?
     <Canvas
       camera={{ position: [0, 0, 25], fov: 60 }}
       style={{
@@ -100,6 +102,7 @@ export default function NeonGreenBackground() {
       <ambientLight intensity={theme === "dark" ? 0.3 : 0.15} />
       <StarField count={300} color={starColorPrimary} />
       <StarField count={400} color={starColorSecondary} />
-    </Canvas>
+    </Canvas> : <> </>}
+    </>
   );
 }

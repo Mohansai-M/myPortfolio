@@ -3,9 +3,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Navbar.module.css";
 import ThemeToggle from "./ThemeToggle";
+import EffectToggle from "./EffectToggle";
 import { useSelector } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu,X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 const sections = ["home", "about", "projects", "contributions", "experience"];
 
@@ -35,13 +36,13 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleClick = (id) => {
-    const section = document.getElementById(id);
-    if (section) section.scrollIntoView({ behavior: "smooth" });
-    setIsMenuOpen(false);
-  };
+const handleClick = (id) => {
+  const baseUrl = window.location.origin; // e.g. http://localhost:3000
+  const targetUrl = id && id !== "home" ? `${baseUrl}/#${id}` : baseUrl;
+  window.location.href = targetUrl;
+  setIsMenuOpen(false);
+};
 
-  // Framer Motion
   const sidebarVariants = {
     hidden: { x: "100%" },
     show: { x: 0, transition: { type: "spring", stiffness: 250, damping: 25 } },
@@ -57,13 +58,11 @@ const Navbar = () => {
   };
 
   return (
-    <>
-      {/* Scroll Progress */}
+    <span data-theme={theme}>
       <div
         className={styles.scrollProgress}
         style={{ width: `${scrollProgress}%` }}
       />
-
 
       <motion.nav
         className={`${styles.navbar} ${scrolled ? styles.scrolled : ""}`}
@@ -71,17 +70,13 @@ const Navbar = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <div className={styles.logo} onClick={() => handleClick("home")}>
-          Mohansai
-        </div>
-
         <ul className={styles.navLinks}>
           {sections.map((id) => (
             <li key={id}>
               <motion.a
                 whileHover={{
                   scale: 1.1,
-                  textShadow: `0 0 8px var(--neon-green)`,
+                  textShadow: `0 0 8px var(--brand-accent)`,
                 }}
                 transition={{ type: "spring", stiffness: 300 }}
                 onClick={() => handleClick(id)}
@@ -93,18 +88,21 @@ const Navbar = () => {
               </motion.a>
             </li>
           ))}
-          <li>
+          <li className={styles.togglesContainer}>
+            <EffectToggle />
             <ThemeToggle />
           </li>
         </ul>
 
-        {/* Hamburger */}
-        <div className={styles.menuIcon} onClick={() => setIsMenuOpen(true)} data-theme={theme}>
+        <div
+          className={styles.menuIcon}
+          onClick={() => setIsMenuOpen(true)}
+          data-theme={theme}
+        >
           <Menu size={28} />
         </div>
       </motion.nav>
 
-      {/* Mobile Sidebar */}
       <AnimatePresence>
         {isMenuOpen && (
           <>
@@ -115,9 +113,13 @@ const Navbar = () => {
               animate="show"
               exit="exit"
             >
-              <button onClick={() => setIsMenuOpen(false)} className={styles.closeIcon}>
+              <button
+                onClick={() => setIsMenuOpen(false)}
+                className={styles.closeIcon}
+              >
                 <X size={28} />
               </button>
+
               <motion.ul className={styles.sidebarLinks} data-theme={theme}>
                 {sections.map((id) => (
                   <motion.li key={id} variants={itemVariants}>
@@ -132,10 +134,13 @@ const Navbar = () => {
                   </motion.li>
                 ))}
               </motion.ul>
-              <ThemeToggle />
+
+              <div className={styles.sidebarToggles}>
+                <EffectToggle />
+                <ThemeToggle />
+              </div>
             </motion.div>
 
-            {/* Overlay */}
             <motion.div
               className={styles.overlay}
               initial={{ opacity: 0 }}
@@ -147,7 +152,7 @@ const Navbar = () => {
           </>
         )}
       </AnimatePresence>
-    </>
+    </span>
   );
 };
 

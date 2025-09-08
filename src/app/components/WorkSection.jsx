@@ -113,12 +113,11 @@ const WorkSection = () => {
   const parallax = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
 
   return (
-    <section id="experience" className={styles.experience}>
+    <section id="experience" className={styles.experience} data-theme={theme}>
       <div className={styles.ambient}></div>
 
       <motion.h2
         className={styles.heading}
-        style={{ color: theme === "light" ? "#222" : "#fff" }}
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}

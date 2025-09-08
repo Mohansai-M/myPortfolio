@@ -14,10 +14,9 @@ export default function Home() {
   const theme = useSelector((state) => state.theme.mode);
 
   return (
-    < div data-theme={theme}>
+    <div data-theme={theme}>
       <div className="Global_background" data-theme={theme}></div>
         <>
-          <Navbar />
           <section id="home">
             <HeroSection />
           </section>
@@ -39,7 +38,6 @@ export default function Home() {
           <section id="contact">
             <ContactSection />
           </section>
-          <Footer />
         </>
     </div>
   );
