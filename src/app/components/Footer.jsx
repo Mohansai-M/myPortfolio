@@ -6,13 +6,15 @@ import { FaArrowUp } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
 
-const Footer = () => {
+const Footer = ({ scrollRef }) => {
   const theme = useSelector((state) => state.theme.mode);
   const [particles, setParticles] = useState([]);
 
-const scrollToTop = () => {
-  document.documentElement.scrollIntoView({ behavior: "smooth" });
-};
+  const scrollToTop = () => {
+    if (scrollRef && scrollRef.current) {
+      scrollRef.current.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
 
   return (
     <motion.footer
@@ -32,39 +34,16 @@ const scrollToTop = () => {
       </div>
       {/* Scroll-to-top button */}
       <div className={styles.scrollWrapper}>
-        <motion.button
-          className={styles.scrollTop}
+      <motion.button
+        className={styles.scrollTop}
           onClick={() => scrollToTop()}
-          whileHover={{ scale: 1.15 }}
-          whileTap={{ scale: 0.9 }}
-          aria-label="Scroll to top"
-        >
-          <FaArrowUp />
-        </motion.button>
+        whileHover={{ scale: 1.15 }}
+        whileTap={{ scale: 0.9 }}
+        aria-label="Scroll to top"
+      >
+        <FaArrowUp />
+      </motion.button>
 
-        {/* Particle burst */}
-        <AnimatePresence>
-          {particles.map((p) => (
-            <motion.span
-              key={p.id}
-              className={styles.particle}
-              initial={{ opacity: 1, x: 0, y: 0, scale: 1 }}
-              animate={{
-                x: p.distance * Math.cos((p.angle * Math.PI) / 180),
-                y: p.distance * Math.sin((p.angle * Math.PI) / 180),
-                opacity: 0,
-                scale: 0.3,
-              }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              onAnimationComplete={() =>
-                setParticles((prev) =>
-                  prev.filter((particle) => particle.id !== p.id)
-                )
-              }
-              style={{ backgroundColor: p.color }}
-            />
-          ))}
-        </AnimatePresence>
       </div>
     </motion.footer>
   );

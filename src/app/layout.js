@@ -1,4 +1,3 @@
-// RootLayout.js
 "use client";
 
 import "./globals.css";
@@ -10,11 +9,11 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 // Client component to handle theme
 function ThemeWrapper({ children }) {
-  const theme = useSelector((state) => state.theme.mode); // pick only mode
+  const theme = useSelector((state) => state.theme.mode);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme || "light");
@@ -24,18 +23,18 @@ function ThemeWrapper({ children }) {
 }
 
 export default function RootLayout({ children }) {
+  const scrollRef = useRef(null);
+
   return (
     <Provider store={store}>
-      {/* HTML stays at the top level */}
       <html lang="en">
-        <body>
-          {/* ThemeWrapper inside body */}
+        <body ref={scrollRef} style={{ overflowY: "auto", height: "100vh" }}>
           <ThemeWrapper>
             <LayoutWrapper>
               <Navbar />
               <BackgroundCanvas props={false} />
-              <main>{children}</main>
-              <Footer />
+              {children}
+              <Footer scrollRef = {scrollRef}/>
             </LayoutWrapper>
           </ThemeWrapper>
         </body>

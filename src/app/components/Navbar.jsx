@@ -7,6 +7,7 @@ import EffectToggle from "./EffectToggle";
 import { useSelector } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import Link from "next/link";
 
 const sections = ["home", "about", "projects", "contributions", "experience"];
 
@@ -35,13 +36,6 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-const handleClick = (id) => {
-  const baseUrl = window.location.origin; // e.g. http://localhost:3000
-  const targetUrl = id && id !== "home" ? `${baseUrl}/#${id}` : baseUrl;
-  window.location.href = targetUrl;
-  setIsMenuOpen(false);
-};
 
   const sidebarVariants = {
     hidden: { x: "100%" },
@@ -73,19 +67,24 @@ const handleClick = (id) => {
         <ul className={styles.navLinks}>
           {sections.map((id) => (
             <li key={id}>
-              <motion.a
+              <motion.div
                 whileHover={{
                   scale: 1.1,
                   textShadow: `0 0 8px var(--brand-accent)`,
                 }}
                 transition={{ type: "spring", stiffness: 300 }}
-                onClick={() => handleClick(id)}
-                className={`${styles.link} ${
-                  activeSection === id ? styles.active : ""
-                }`}
               >
-                {id.charAt(0).toUpperCase() + id.slice(1)}
-              </motion.a>
+                <Link
+                  href={id === "home" ? "/" : `/#${id}`}
+                  scroll={false} 
+                  className={`${styles.link} ${
+                    activeSection === id ? styles.active : ""
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {id.charAt(0).toUpperCase() + id.slice(1)}
+                </Link>
+              </motion.div>
             </li>
           ))}
           <li className={styles.togglesContainer}>
@@ -123,14 +122,16 @@ const handleClick = (id) => {
               <motion.ul className={styles.sidebarLinks} data-theme={theme}>
                 {sections.map((id) => (
                   <motion.li key={id} variants={itemVariants}>
-                    <button
-                      onClick={() => handleClick(id)}
+                    <Link
+                      href={id === "home" ? "/" : `/#${id}`}
+                      scroll={false}
                       className={`${styles.link} ${
                         activeSection === id ? styles.active : ""
                       }`}
+                      onClick={() => setIsMenuOpen(false)}
                     >
                       {id.charAt(0).toUpperCase() + id.slice(1)}
-                    </button>
+                    </Link>
                   </motion.li>
                 ))}
               </motion.ul>
